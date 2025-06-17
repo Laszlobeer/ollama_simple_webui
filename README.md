@@ -1,5 +1,5 @@
 
-````
+
 # 💬 Ollama Chat - Web Interface
 
 A modern web-based chat interface for interacting with Ollama models, featuring model selection, file uploads, web search integration, and customizable themes.
