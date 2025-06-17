@@ -26,7 +26,7 @@ A modern web-based chat interface for interacting with Ollama models, featuring 
 
 ---
 ## preview
-🎥 [Watch the Screencast (MP4)](videos/Screencast%202025-06-17%2020%3A09%3A39.mp4)
+🎬 [Click here to watch the demo on YouTube](https://youtu.be/SpfmQEIuSuE)
 
 
 
