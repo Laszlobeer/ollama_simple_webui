@@ -25,7 +25,12 @@ A modern web-based chat interface for interacting with Ollama models, featuring 
 - 💡 **Code Highlighting** — Automatic syntax highlighting for code snippets  
 
 ---
+## preview
+🎥 [Watch the Screencast (MP4)](videos/Screencast%202025-06-17%2020%3A09%3A39.mp4)
 
+
+
+---
 ## ⚙️ Prerequisites
 
 - 🐍 Python 3.8+  
