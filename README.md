@@ -12,12 +12,13 @@ A modern web-based chat interface for interacting with Ollama models, featuring 
 - 📎 **File Uploads** — Process PDF, DOCX, and TXT files  
 - 🌐 **Web Search** — Integrated DuckDuckGo search for enhanced research not responce  
 - 🎨 **Theming** — 7 unique visual themes including:
-  - 🌑 Dark & 🌕 Light modes  
+  - 🌑 Dark
+  - 🌕 Light  
   - 🤖 Cyberpunk  
   - 🖥️ Retro Terminal  
   - 📇 Vintage Typewriter  
   - 📚 Comic Book style
-  - and more---
+  
 - 🎛️ **Model Parameters** — Fine-tune temperature, top-p, top-k, and more  
 - 🧠 **System Prompts** — Customize AI behavior with system instructions  
 - 🕓 **Conversation History** — Manage chat sessions with history tracking  
