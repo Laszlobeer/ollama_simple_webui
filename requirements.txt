@@ -4,3 +4,9 @@ PyPDF2
 python-docx
 requests
 duckduckgo-search
+pandas
+python-pptx
+pytesseract
+Pillow
+SpeechRecognition
+openpyxl

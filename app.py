@@ -9,6 +9,13 @@ from docx import Document
 import re
 from urllib.parse import urlparse
 import html
+import pandas as pd
+from pptx import Presentation
+import pytesseract
+from PIL import Image
+import speech_recognition as sr
+from io import BytesIO
+import openpyxl
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -48,24 +55,83 @@ def get_models():
 def extract_text_from_file(filepath):
     text = ""
     try:
-        if filepath.lower().endswith('.pdf'):
+        # Get file extension
+        _, ext = os.path.splitext(filepath)
+        ext = ext.lower()
+        
+        # Handle different file types
+        if ext == '.pdf':
             with open(filepath, 'rb') as f:
                 reader = PdfReader(f)
                 for page in reader.pages:
                     text += page.extract_text() + "\n"
-        elif filepath.lower().endswith('.docx'):
+                    
+        elif ext in ['.docx', '.doc']:
             doc = Document(filepath)
             for para in doc.paragraphs:
                 text += para.text + "\n"
-        elif filepath.lower().endswith('.txt'):
+                
+        elif ext == '.txt':
             with open(filepath, 'r', encoding='utf-8') as f:
                 text = f.read()
+                
+        elif ext in ['.xlsx', '.xls']:
+            # Handle Excel files
+            if ext == '.xlsx':
+                wb = openpyxl.load_workbook(filepath)
+                for sheet_name in wb.sheetnames:
+                    sheet = wb[sheet_name]
+                    text += f"--- Sheet: {sheet_name} ---\n"
+                    for row in sheet.iter_rows(values_only=True):
+                        text += "\t".join([str(cell) if cell is not None else "" for cell in row]) + "\n"
+                    text += "\n"
+            else:  # .xls
+                df = pd.read_excel(filepath, sheet_name=None)
+                for sheet_name, sheet_data in df.items():
+                    text += f"--- Sheet: {sheet_name} ---\n"
+                    text += sheet_data.to_string(index=False) + "\n\n"
+                    
+        elif ext == '.csv':
+            df = pd.read_csv(filepath)
+            text = df.to_string(index=False)
+            
+        elif ext in ['.pptx', '.ppt']:
+            prs = Presentation(filepath)
+            for i, slide in enumerate(prs.slides):
+                text += f"--- Slide {i+1} ---\n"
+                for shape in slide.shapes:
+                    if hasattr(shape, "text"):
+                        text += shape.text + "\n"
+                text += "\n"
+                
+        elif ext in ['.png', '.jpg', '.jpeg', '.bmp', '.tiff']:
+            # OCR for images
+            img = Image.open(filepath)
+            text = pytesseract.image_to_string(img)
+            
+        elif ext in ['.py', '.js', '.html', '.css', '.java', '.cpp', '.c', '.php', '.rb', '.go', '.rs', '.ts', '.sh']:
+            # Code files
+            with open(filepath, 'r', encoding='utf-8') as f:
+                text = f.read()
+                
+        elif ext in ['.wav', '.mp3', '.flac']:
+            # Audio transcription
+            r = sr.Recognizer()
+            with sr.AudioFile(filepath) as source:
+                audio = r.record(source)
+            text = r.recognize_google(audio)
+            
         else:
-            text = "[Unsupported file format]"
+            # Try to read as text
+            try:
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    text = f.read()
+            except:
+                text = f"[Unsupported file format: {ext}]"
         
         # Clean and truncate text
         text = re.sub(r'\s+', ' ', text).strip()
-        return text[:10000]  # Truncate to 10k characters
+        return text[:15000]  # Truncate to 15k characters
     except Exception as e:
         return f"[Error processing file: {str(e)}]"
 
