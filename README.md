@@ -76,7 +76,29 @@ PORT=5001
 ```
 
 ---
+## How to Build and Run the Docker Container for Ollama Chat
 
+### 1. Build the Docker Imagee
+
+```bash
+docker build -t ollama-chat .
+````
+
+### 2. Run the Docker Container
+
+```bash
+docker run -d -p 5001:5001 --name ollama-chat-container ollama-chat
+```
+
+This will:
+
+* Build an image named `ollama-chat` from your Dockerfile.
+* Start a detached container named `ollama-chat-container`.
+* Map port `5001` from the container to your host machine.
+
+
+---
+---
 ## ▶️ Usage
 
 ### 1. 🔧 Start the Flask server
