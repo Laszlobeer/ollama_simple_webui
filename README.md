@@ -219,8 +219,3 @@ This project is licensed under the **MIT License**. See [`LICENSE`](LICENSE) for
 
 If you find this project helpful, consider buying me a coffee!  
 Your support keeps the code flowing! 🙏💻
-
-[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-%E2%98%95-orange?style=for-the-badge)](https://ko-fi.com/laszlobeer)
-
-👉 [ko-fi.com/laszlobeer](https://ko-fi.com/laszlobeer)
-
